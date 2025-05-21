@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+
+<!-- I suck at html... -->
+<!-- if you are reading this then you probably hate this quiz... -->
+<!-- words to live by:
+		all restaurants are drive thrus if you're drunk enough
+		To do good at football, you have to tackle members of the opposing team. Unless you're in the stands, of course.
+		Confucius say: wise man not play leapfrog with unicorn
+		-->
+<!-- I hope some weird browser version doesn't interpret these comments as actual html... that would be a weird sight -->
+
+<html>
+<head>
+<meta charset="utf-8" />
+
+<title>The World's Best Personality Quiz!</title>
+<style>
+
+	.optionbox1 {
+		position: relative;
+		border: 5px outset black;
+		
+		height: 100%;
+		width: 100%;
+	}		
+
+	.optiontext {
+		position: relative;
+		left: 30px;
+		top: 10%;	
+		
+	}
+	.optionbox-container {
+		position: relative;
+		top: 10%;
+		height: 10%;
+		width: 20%;
+		padding-bottom: 20px;
+	}
+	.answer-container {
+		position: relative;
+		top: 200px;	
+		
+	}
+	.topmost-item {
+		z-index: 10;	
+	}
+	.item-hidden {
+		visibility: hidden;
+	}
+	.text-question {
+		position: relative;
+		top: -100px;	
+		
+	}
+	.submit-text-button {
+		position: relative;
+		top: 70%;
+		left: 20px;
+		background-color: #00bb22;	
+		width: 90px;
+		height: 40px;
+		
+		
+	}
+	.text-question-input-textbox {
+		position: relative;
+		top: 40%;
+			
+	}
+	.submit-text-button-text {
+		position: relative;
+		top: 25%;
+		left: 20%;
+	}
+	.question-container {
+		position: relative;
+		top: 125px;
+		left: 40px;
+		height: 90px;
+		width: 600px;
+		background-color: #28BF3F;
+			
+	}
+	.question-text {
+		position: relative;
+		top: 25%;
+		left: 10%;	
+	}
+	.option-selected {
+			background-color: #1DC323;
+			border-style: inset;
+	}
+	.centered-item {
+		display: flex;
+		justify-content: center;	
+	}
+	.button-proceed-box {
+		position: relative;
+		top: 175px;
+		left: 40px;
+		height: 50px;
+		width: 200px;
+
+
+	}	
+	.button-proceed {
+		border: 3px solid black;
+		background-color: #01ff03;
+	}
+	.answer-disabled {
+		opacity: 0.5;	
+	}
+	.resultOverlay {
+		background-color: yellow;
+		position: absolute;
+		visibility: hidden;
+		top: 30%;
+		height: 40%;
+		width: 100%
+		
+	}
+	body {
+		font-family: sans-serif;	
+	}
+	
+</style>
+</head>
+	<body>
+		<div class="centered-item">
+			<h2>The World's Best Personality Quiz</h2>
+		</div>
+		<div class="quiz-instructions">
+			<h5>Select the option that best describes you. Good luck..</h5>
+		</div>
+
+		<div class="question-container">
+			<p id="questiontext1" class="question-text">1. </p>		
+		</div>
+		<div class="answer-container">
+			<div id="mccontainer1" class="">
+			<div class="optionbox-container">
+				<div id="option1" class="optionbox1 topmost-item">
+					<p class="optiontext">--&rt; Option 1</p>
+				</div>
+			</div>
+			<div class="optionbox-container">
+				<div id="option2" class="optionbox1">
+					<p class="optiontext">--&rt; Option 2</p>
+				</div>
+			</div>
+			<div class="optionbox-container">
+				<div id="option3" class="optionbox1">
+					<p class="optiontext">Option 3</p>
+				</div>
+			</div>
+			<div class="optionbox-container">
+				<div id="option4" class="optionbox1">
+					<p class="optiontext">Option 3</p>
+				</div>
+			</div>
+			</div>
+			<div class="text-question item-hidden">
+				<input class="text-question-input-textbox" type="text" name="textquestionbox" value="" />
+				<div class="submit-text-button">
+					<p class="submit-text-button-text">Submit</p>				
+				</div>
+				
+							
+			</div>
+		</div>
+		<div class="button-proceed-box" >
+			<div class="button-proceed" id="proceedbutton1">
+				<p style="position: relative; top: 25%; left:20px;">Next</p>
+			</div>
+		</div>
+
+	<div class="resultOverlay" id="resultsoverlay1">
+		<h2 class="centered-item">Results:</h2>
+		<h4 class="centered-item">Your results could not be determined. </h4>
+		<p class="centered-item">Based on the answers you gave, we haven't the slightest idea how to describe you. You're pretty far out there...</p>
+		<div class="centered-item">
+			<button id="resetbutton1">Do it again (not recommended)</button>	
+		</div>
+	</div>
+	<script type="text/javascript">
+	// before you trash on my javascript skills, know that I am very new to this, and I am still learning.
+	// I will improve this code eventually.
+	(function(){
+		let questions_data = [{"question":"I have no problem farting in public.", "answer1":"Strongly Agree", "answer2":"Agree", "answer3":"Disagree", "answer4":"Strongly Disagree",
+									"target":1, "method":"disable"},
+									{"question":"Would you rather...", "answer1":"Eat pineapple on pizza", "answer2":"Eat a shoe", "answer3":"eat sushi", "answer4":"eat tofu",
+									"target":null, "method":"swap"},
+									{"question":"Taylor swift: Yes or no?", "answer1":"OMG YESSS TAY TAY", "answer2":"Yes", "answer3":"No", "answer4":"NO WAY SHE IS HORRIBLE",
+									"target":null, "method":"swap"},
+									{"question":"If I could watch one series for the rest of my life it would be:", "answer1":"The Office", "answer2":"Friends", "answer3":"Stranger Things", "answer4":"Barney and Friends",
+									"target":4, "method":"chase"},
+									{"question":"When someone greets me in public, I tend to...", "answer1":"Greet them back", "answer2":"Shake Their Hand", "answer3":"Ignore them", "answer4":"Slap them for no reason",
+									"target":4, "method":"chase"},
+									 ];
+		
+			let question_num = 0;
+			let answer_buttons_table = ["option1", "option2", "option3", "option4"]; // assigns answer numbers to corresponding element IDs
+			let trackButtonState = 0;
+			let initialOffsetPosition = null;
+			let initialOffsetBodyPosition = null;
+			let selectedAnswer = null;
+			function handleMouseEvent(event){
+				
+				if(questions_data[question_num].method === "chase"){
+					onChaseMouseEvent(event)		
+					}
+				
+			}
+			function onChaseMouseEvent(event){ // get positions of the body object and button object to align the button with the mouse
+				if(trackButtonState != 1){ // if should not be chasing mouse, do nothing. this var is 2 when button is clicked and 0 when not hovered yet
+					return;			
+				}
+				
+				if(initialOffsetPosition === null){
+					initialOffsetPosition = document.getElementById(answer_buttons_table[questions_data[question_num].target-1]).getBoundingClientRect();				
+				}
+				if(initialOffsetBodyPosition === null){
+					initialOffsetBodyPosition = document.body.getBoundingClientRect();				
+				}
+				 
+				
+				
+				var objectToMove = document.getElementById(answer_buttons_table[questions_data[question_num].target-1]);
+				var moveOffsetX = initialOffsetPosition.left - initialOffsetBodyPosition.left;
+				var moveOffsetY = initialOffsetPosition.top - initialOffsetBodyPosition.top;
+				
+				objectToMove.style.top = (event.pageY-moveOffsetY-30)+"px"; // move the button
+				objectToMove.style.left = (event.pageX-moveOffsetX-30)+"px";
+			}
+			function onQuestionAdvance(){
+				if(selectedAnswer === null){
+					return;				
+				}
+				if(question_num < questions_data.length-1){
+					question_num++;
+					setupQuestion(null);	
+				}
+				else {
+					finishQuiz();				
+				}
+					
+				}
+			function onQuestionInitialize(){
+				setupQuestion(null);
+				
+				
+							
+				}
+			function clearDisabled(){
+				items = document.getElementsByClassName("optionbox1");
+				for(let i = 0; i < items.length; i++){
+						items[i].classList.remove("answer-disabled");
+					
+				}		
+			}
+			function resetButtonPositions(){
+				items = document.getElementsByClassName("optionbox1");
+				for(let i = 0; i < items.length; i++){
+						items[i].style.top = "0px";
+						items[i].style.left = "0px";
+						items[i].classList.remove("answer-disabled");
+						items[i].classList.remove("option-selected");
+						items[i].classList.remove("topmost-item");
+					
+				}		
+			}
+			function setupQuestion(aOrder){
+				if(question_num >= questions_data.length){
+					return;
+				}
+				initialOffsetPosition = null;
+				selectedAnswer = null;
+				initialOffsetBodyPosition = null;
+				trackButtonState = 0;
+				clearDisabled()
+				resetButtonPositions();
+				disableNextButton();
+				document.getElementById("questiontext1").innerHTML = questions_data[question_num].question;
+				setAnswers(null);
+				if(questions_data[question_num].method === "chase"){
+					setupChaseQuestion();				
+				}
+			}
+			function setAnswers(aOrder){
+				if(question_num >= questions_data.length){
+					return;
+				}
+				if(aOrder === null){
+					aOrder = [0, 1, 2, 3];
+								
+	
+				}
+				document.getElementById(answer_buttons_table[aOrder[0]]).children[0].innerHTML = questions_data[question_num].answer1;
+				document.getElementById(answer_buttons_table[aOrder[1]]).children[0].innerHTML = questions_data[question_num].answer2;
+				document.getElementById(answer_buttons_table[aOrder[2]]).children[0].innerHTML = questions_data[question_num].answer3;
+				document.getElementById(answer_buttons_table[aOrder[3]]).children[0].innerHTML = questions_data[question_num].answer4;			
+			}
+			function onAnswer1Select(event){
+				
+				item_id = event.target.closest(":not(p)").id;
+				//console.log(event.target.closest(":not(p)"));
+				
+				if (item_id === "option1" || item_id === "option2" || item_id === "option3" || item_id === "option4"){
+					selectAnswer(item_id);		
+					//console.log(item_id);
+					//console.log(answer_buttons_table[questions_data[question_num].target]);
+					
+					if(item_id === answer_buttons_table[questions_data[question_num].target-1] && trackButtonState === 1){
+						trackButtonState = 2;
+					}
+				}
+			}
+			function selectAnswer(elementName, optionNumber){
+				if(selectedAnswer !== null){
+							return;
+					}
+					
+					if(questions_data[question_num].method === "swap"){
+						swapAnswers();					
+					}
+					
+					if(questions_data[question_num].method === "disable"){
+						let target_button = questions_data[question_num].target;
+						
+						
+							selectOneOption(answer_buttons_table[target_button-1]);						
+						
+						
+						
+						
+					}
+					else {
+						selectOneOption(elementName)
+					}				
+			}
+			function onAnswer1Hover(){
+				if(trackButtonState===0){
+				trackButtonState = 1;
+				}
+			}
+			function onProceedButtonClick(){
+				
+				onQuestionAdvance();
+			}
+			function selectOneOption(elementName) {
+				for(let i = 0; i < answer_buttons_table.length; i++){
+					if(elementName !== answer_buttons_table[i]){
+						document.getElementById(answer_buttons_table[i]).classList.add("answer-disabled");
+											
+					}
+					else {
+						selectedAnswer = i;
+						enableNextButton();
+						document.getElementById(elementName).classList.add("option-selected");						
+					}					
+				}			
+			}
+			function disableNextButton(){
+				document.getElementById("proceedbutton1").classList.add("answer-disabled");
+				
+			}
+			function enableNextButton(){
+				document.getElementById("proceedbutton1").classList.remove("answer-disabled");
+				
+			}
+			function setupChaseQuestion(){
+				let buttonNum = questions_data[question_num].target;
+					document.getElementById(answer_buttons_table[buttonNum]).classList.add("topmost-item");		
+			}
+			function finishQuiz(){
+				document.getElementById("resultsoverlay1").style.visibility = "visible";			
+			}
+			function onQuizReset(){
+				document.getElementById("resultsoverlay1").style.visibility = "hidden";	
+				question_num = 0;
+				onQuestionInitialize();			
+			}
+			function swapAnswers(){
+				setAnswers([3, 2, 1, 0]);
+							
+			}
+		
+		
+		onQuestionInitialize();
+		
+		window.onmousemove = handleMouseEvent;
+		document.getElementById("mccontainer1").addEventListener("mouseup", onAnswer1Select);
+		document.getElementById("mccontainer1").addEventListener("mouseover", onAnswer1Hover);
+		document.getElementById("proceedbutton1").addEventListener("click", onProceedButtonClick);
+		document.getElementById("resetbutton1").addEventListener("click", onQuizReset);
+		})();
+	</script>
+	</body>
+</html>
