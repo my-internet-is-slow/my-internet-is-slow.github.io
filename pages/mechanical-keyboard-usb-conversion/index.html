@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Mechanical Keyboard USB Conversion</title>
+		<link rel="stylesheet" type="text/css" href="/pagestyle.css">
+	</head>
+	<body>
+		<div class="title-bar">
+			<div class="title-text centered-element gradient-text">
+				<a href="/">
+					<p class="gradient-text">Caleb's website.</p>
+				</a>
+			</div>
+			<div class="quote-text centered-element">
+				<p>To all the people who told me to &quot;Have a nice day&quot; today, i'm sorry to disappoint :)</p>
+			</div>
+		</div>
+		<div class="page-body">
+			<div class="content-pane">
+				<div class="section-title-text centered-element">
+					<p>Mechanical Keyboard USB Conversion</p>
+				</div>	
+				<div class="content-text">
+					<p>This story begins in February, when I made a trip to my favorite used electronics store: the Reuseum. 
+					They sell a variety of electronic parts and devices that people donate to them, at a reasonable price.
+					As I scanned the aisles in search of my latest find, a box of mechanical keyboards caught my eye. Specifically, a
+					vintage keyboard from "NMB Technologies." Don't know who that is. The date code on the chip signified it was made in the early
+					nineties, and it had a 5 pin DIN connector for connection. I found an adapter for this connector as well in another bin, which
+					converted it to PS/2. I also found a PS/2 to USB adapter, which I figured would allow me to use it with my laptop.</p>
+					<p>Thirty dollars later, and it was MINE!!!</p>
+					<p>After bringing the keyboard home, I connected it to my laptop for a first test and... nothing.</p>
+					<p>After some research, I realized that the adapter I was using is known as a passive PS/2 to USB adapter, which passes the PS/2
+					lines directly to the USB data lines, which is intended for some keyboards that support both USB and PS/2 internally. Mine did not.
+					Since the reuseum is several hours away from where I live, I could not go back for awhile and purchase an active adapter,
+					which contains the necessary hardware to actually convert the PS/2 signals to USB. So I set out to build my own adapter.  </p>
+					<p>I began by researching already existing projects for DIY PS/2 to USB keyboards, but after trying several, none seemed to work. 
+					After getting rather frustrated, I decided to probe the PS/2 lines with my oscilloscope to look for activity. Nothing. I then opened the 
+					keyboard to inspect the internals, and after probing the matrix outputs on the controller chip and seeing unusual behavior, I ruled the
+					chip was dead. I confirmed this a few months later when I made it back to reuseum and purchased an active adapter, 
+					which did not work. I googled around for a bit to try and find the chip online, but according to the internet, it never existed. So i
+					 set out to make my own. </p>
+					<p>I began by soldering some headers to a Raspberry Pi Pico, which in 2025 every hacker needs to have at least 3 of, and then soldered it to
+					a piece of perfboard. The original controller PCB had two edge connectors, one for the rows and one for the columns, to attach to the keyboard mechanism,
+					which I desoldered and placed on the perfboard, making sure the spacing between them was correct so the keyboard would plug on correctly. I assumed the 
+					smaller 8 pin connector was for the rows and the larger one for the columns, which I verified by disassembling the keyboard mechanism and tracing the connections.
+					I then began the tedious process of soldering jumper wires between the connector pins and the Pi Pico. The LEDs got special attention. The rightmost four pins consisted
+					of a common anode and each LED's cathodes. Unfortunately there were not enough pins on the Pi Pico to connect all of the LEDs, so I had to leave Scroll Lock disconnected.
+					I connected each cathode to two Pi Pico pins through resistors, and the common anode to the pico's 3.3v output. Next, I soldered 8 jumpers to the row connector, and 16 
+					to the column connector, connecting them to pins on the Pi Pico. While soldering, I failed to connect one pin, which later got connected in a different order than the rest.
+					Fortunately, I would be creating a custom keymap for each key, meaning this could be fixed by rearranging the keymap, rather than desoldering each wire that was placed before it.
+					</p>
+					<p>
+					After assembly, I plugged a micro USB cable into the Pi Pico, and connected the keyboard mechanism to the board. In the end, to make room for both connectors, I had to glue
+					two perfboards together, which worked surprisingly well. I then wrote a simple arduino sketch to give me a row and column number for each keypress. After uploading the sketch, 
+					I pressed each key, and noted the corresponding row and column numbers in order to make a working keymap. With the keymap done, I wrote a new sketch that would send each keypress to the computer 
+					using the Keyboard library. Unfortunately the Keyboard library does not offer a way that I know of to get the value of the LEDs over USB, so I just set the code to turn on the CAPS LOCK
+					led as a power on indicator. I then assembled the keyboard, but realized my new PCB was slightly too big to fit comfortably inside. For that reason, I only put in a few screws
+					and just hoped the pressure wouldn't hurt it too much ;) It seems to be fine tho. 
+					</p>
+					<p>
+					Now my new keyboard sits on my desk, where I use it every day. So far, no issues. (except for a problem with the aforementioned keymap where the 8 key sends a space character instead.
+					That was quickly fixed) (As I write this, I notice some keys stick when I use a modifier key, which might have to due with a too short delay between calls to Keyboard.release(). I might
+					try adding an extra delay to give the OS time to process each key event. Other than that, no issues ;) )
+					</p>
+					<p>I'm still new to online blogging, and I probably didn't document this as well as I could have. My writing skills and picture taking skills could probably use some work. At least
+					I have one photo, tho:
+					</p>
+					<br>
+					
+					<a href="files/keyboard1.jpeg" class="centered-element">
+						<img src="files/keyboard1.jpeg" class="inline-photo"></img>
+					</a>
+					<br>
+				</div>
+			</div>
+			<div class="side-pane">
+				<div class="centered-element section-title-text">
+					<p>Links:</p>
+				</div>
+				<div class="side-pane-links page-links centered-element">
+					<a href="/pages/mechanical-keyboard-usb-conversion/index.html" class="hover-gradient">Mechanical Keyboard USB conversion</a>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+			

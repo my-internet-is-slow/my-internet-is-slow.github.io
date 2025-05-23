@@ -1,0 +1,113 @@
+@font-face {
+	font-family: titleFont;
+	src: url(Oswald-Bold.otf);
+}
+@font-face {
+	font-family: textFont1;
+	src: url(CothamSans.otf);
+}
+
+body {
+	background-color: black;
+}
+
+.title-bar {
+	background-color: black;
+	position: relative;
+	top: 0px;
+	left: 0px;
+	width: parent;
+	height: 200px;
+	border: solid 3px rgb(67, 100, 255);
+	
+}
+.centered-element {
+	display: flex;
+	justify-content: center;
+}
+.title-text {
+	font-family: titleFont;
+	font-size: 30pt;
+	
+}
+.content-pane {
+	position: relative;
+	top: 5%;
+	left: 1%;
+	width: 70%;
+	height: 80%;
+	background-color: black;
+	border: solid 3px rgb(67, 100, 255);
+	overflow: auto;
+}
+.page-body {
+	width: parent;
+	height: 1000px;
+	position: relative;
+	top: 5%;
+	left: 0%;
+	
+}
+.side-pane {
+	position: absolute;
+	width: 25%;
+	height: 1000px;
+	left: 73%;
+	top: 5%;
+	background-color: black;
+	border: solid 3px rgb(67, 100, 255);
+	
+}
+.section-title-text {
+	font-family: titleFont;
+	font-size: 18pt;
+	color: rgb(0, 255, 0);
+}
+.side-pane-links {
+	position: relative;
+	top: 5%;
+	
+}
+
+.page-links {
+	font-family: textFont1;
+	font-size: 11pt;
+	
+}
+.quote-text {
+	font-family: textFont1;
+	font-size: 15pt;
+	color: rgb(67, 100, 255);
+}
+
+.content-text {
+	font-family: textFont1;
+	font-size: 11pt;
+	color: rgb(0, 255, 0);
+	position: relative;
+	left: 5%;
+	width: 70%;
+}
+@keyframes glowing {
+    0% { background-position: 0 0; }
+    50% { background-position: 400% 0; }
+    100% { background-position: 0 0; }
+}
+.gradient-text {
+	background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+	background-clip: text;
+	background-size: 200%;
+	animation: glowing 300s linear infinite;
+	color: transparent;
+}
+.hover-gradient:hover {
+	background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+	background-clip: text;
+	background-size: 200%;
+	animation: glowing 5s linear infinite;
+	color: transparent;
+}
+.inline-photo {
+	height: auto;
+	max-width: 50%;
+}
